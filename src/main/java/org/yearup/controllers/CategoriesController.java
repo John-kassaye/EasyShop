@@ -1,15 +1,14 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import org.yearup.data.CategoryDao;
 import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
 import org.yearup.models.Product;
 
+import java.sql.Connection;
 import java.util.List;
 
 // add the annotations to make this a REST controller
@@ -56,9 +55,12 @@ public class CategoriesController
 
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
+    @PostMapping("categories")
+//    @PreAuthorize("hasRole('ADMIN')")
     public Category addCategory(@RequestBody Category category)
     {
         // insert the category
+        categoryDao.create(category);
         return null;
     }
 
