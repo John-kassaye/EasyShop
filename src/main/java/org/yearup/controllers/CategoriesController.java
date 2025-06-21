@@ -65,6 +65,15 @@ public class CategoriesController
         return null;
     }
 
+    @PostMapping("categoriesNotAdmin")
+    @PreAuthorize("hasRole('USER')")
+    public Category addCategoryAsUser(@RequestBody Category category)
+    {
+        // insert the category
+        categoryDao.create(category);
+        return null;
+    }
+
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
     public void updateCategory(@PathVariable int id, @RequestBody Category category)
